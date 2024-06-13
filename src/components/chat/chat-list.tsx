@@ -1,20 +1,19 @@
-import { Message, UserData } from "@/app/data";
 import { cn } from "@/lib/utils";
 import React, { useRef } from "react";
-import { Avatar, AvatarImage } from "../ui/avatar";
 import ChatBottombar from "./chat-bottombar";
 import { AnimatePresence, motion } from "framer-motion";
+import { Message, User } from "@/lib/supabase";
 
 interface ChatListProps {
   messages?: Message[];
-  selectedUser: UserData;
-  sendMessage: (newMessage: Message) => void;
+  currentUser: User;
+  sendMessage: (newMessage: string) => void;
   isMobile: boolean;
 }
 
 export function ChatList({
   messages,
-  selectedUser,
+  currentUser,
   sendMessage,
   isMobile
 }: ChatListProps) {
@@ -34,9 +33,9 @@ export function ChatList({
         className="w-full overflow-y-auto overflow-x-hidden h-full flex flex-col"
       >
         <AnimatePresence>
-          {messages?.map((message, index) => (
+          {messages?.map((message) => (
             <motion.div
-              key={index}
+              key={message.id}
               layout
               initial={{ opacity: 0, scale: 1, y: 50, x: 0 }}
               animate={{ opacity: 1, scale: 1, y: 0, x: 0 }}
@@ -55,33 +54,16 @@ export function ChatList({
               }}
               className={cn(
                 "flex flex-col gap-2 p-4 whitespace-pre-wrap",
-                message.name !== selectedUser.name ? "items-end" : "items-start"
+                message.Users.username === currentUser.username ? "items-end" : "items-start"
               )}
             >
               <div className="flex gap-3 items-center">
-                {message.name === selectedUser.name && (
-                  <Avatar className="flex justify-center items-center">
-                    <AvatarImage
-                      src={message.avatar}
-                      alt={message.name}
-                      width={6}
-                      height={6}
-                    />
-                  </Avatar>
-                )}
+                <span>
+                  {message.Users.username}:
+                </span>
                 <span className=" bg-accent p-3 rounded-md max-w-xs">
                   {message.message}
                 </span>
-                {message.name !== selectedUser.name && (
-                  <Avatar className="flex justify-center items-center">
-                    <AvatarImage
-                      src={message.avatar}
-                      alt={message.name}
-                      width={6}
-                      height={6}
-                    />
-                  </Avatar>
-                )}
               </div>
             </motion.div>
           ))}

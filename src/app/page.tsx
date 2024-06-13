@@ -2,8 +2,9 @@ import { cookies } from "next/headers";
 import { ChatLayout } from "@/components/chat/chat-layout";
 import { GitHubLogoIcon } from "@radix-ui/react-icons";
 import { cn } from "@/lib/utils";
-import { buttonVariants } from "@/components/ui/button";
+import { buttonVariants, Button } from "@/components/ui/button";
 import Link from "next/link";
+import { MainLayout } from "@/components/main";
 
 export default function Home() {
   const layout = cookies().get("react-resizable-panels:layout");
@@ -24,9 +25,7 @@ export default function Home() {
         </Link>
       </div>
 
-      <div className="z-10 border rounded-lg max-w-5xl w-full h-full text-sm lg:flex">
-        <ChatLayout defaultLayout={defaultLayout} navCollapsedSize={8} />
-      </div>
+      <MainLayout defaultLayout={defaultLayout} />
 
       <div className="flex justify-between max-w-5xl w-full items-start text-xs md:text-sm text-muted-foreground ">
       <p className="max-w-[150px] sm:max-w-lg">Built by <a className="font-semibold" href="https://github.com/jakobhoeg/">Jakob Hoeg</a>. To be used with <a className="font-semibold" href="https://ui.shadcn.com/">shadcn</a>.</p>

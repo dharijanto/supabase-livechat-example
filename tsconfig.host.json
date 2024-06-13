@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "strictNullChecks": true,
+    "allowJs": true,
+    "sourceMap": true,
+    "rootDir": "./src",
+    "outDir": "./dist",
+    "noImplicitReturns": true,
+    "target": "es2019",
+    "esModuleInterop": true,
+    "incremental": true,
+    "module": "commonjs"
+  },
+  "include": [
+    "src/**/*.js",
+    "src/**/*.ts"
+  ],
+  "exclude": [
+    "src/cms/views/**/*",
+    "src/app/views/**/*"
+  ]
+}

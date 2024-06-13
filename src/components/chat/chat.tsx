@@ -1,31 +1,25 @@
-import { Message, UserData } from "@/app/data";
+// import { Message, ChatData } from "@/app/data";
 import ChatTopbar from "./chat-topbar";
 import { ChatList } from "./chat-list";
 import React from "react";
+import { Message, User } from "@/lib/supabase";
 
 interface ChatProps {
-  messages?: Message[];
-  selectedUser: UserData;
+  messages: Message[];
+  currentUser: User;
   isMobile: boolean;
+  onSendMessage: (newMessage: string) => void;
 }
 
-export function Chat({ messages, selectedUser, isMobile }: ChatProps) {
-  const [messagesState, setMessages] = React.useState<Message[]>(
-    messages ?? []
-  );
-
-  const sendMessage = (newMessage: Message) => {
-    setMessages([...messagesState, newMessage]);
-  };
-
+export function Chat({ messages, onSendMessage, currentUser, isMobile }: ChatProps) {
   return (
     <div className="flex flex-col justify-between w-full h-full">
-      <ChatTopbar selectedUser={selectedUser} />
+      {/* <ChatTopbar currentUser={currentUser} /> */}
 
       <ChatList
-        messages={messagesState}
-        selectedUser={selectedUser}
-        sendMessage={sendMessage}
+        messages={messages}
+        currentUser={currentUser}
+        sendMessage={onSendMessage}
         isMobile={isMobile}
       />
     </div>
